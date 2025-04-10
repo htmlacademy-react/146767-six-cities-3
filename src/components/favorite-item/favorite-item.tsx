@@ -1,6 +1,6 @@
 import {OfferListItem} from '@/types/offers';
-import {TypesCard} from '@/constants';
-import OfferCard from '@/components/offer-card/offer-card';
+import {TypeCard} from '@/constants';
+import OffersList from '@/components/offers-list/offers-list';
 
 interface FavoritesItemProps {
   offers: OfferListItem[];
@@ -27,24 +27,12 @@ export default function FavoriteItem({offers, location}: FavoritesItemProps): JS
           </a>
         </div>
       </div>
-      <div className="favorites__places">
-        {
-          cityOffers.map((offer) => (
-            <OfferCard
-              key={offer.id}
-              id={offer.id}
-              title={offer.title}
-              type={offer.type}
-              price={offer.price}
-              isFavorite={offer.isFavorite}
-              isPremium={offer.isPremium}
-              rating={offer.rating}
-              previewImage={offer.previewImage}
-              typeCard={TypesCard.HorizontalCard}
-            />
-          ))
-        }
-      </div>
+
+      <OffersList
+        offers={cityOffers}
+        typeCard={TypeCard.FavoritesPageCardType}
+      />
+
     </li>
   );
 }

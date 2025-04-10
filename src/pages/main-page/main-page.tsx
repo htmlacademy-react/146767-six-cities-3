@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {PlacesFoundCount} from '@/constants';
+import {PlacesFoundCount, TypeCard} from '@/constants';
 import {OfferListItem} from '@/types/offers';
 import Header from '@/components/header/header';
 import NavList from '@/components/nav-list/nav-list';
@@ -47,6 +47,7 @@ export default function MainPage({offers}: MainPageProps): JSX.Element {
               <PlacesSorting />
               <OffersList
                 offers={offers}
+                typeCard={TypeCard.MainPageCardType}
                 onCardAction={getSelectedPointId}
               />
 

@@ -1,15 +1,23 @@
-export interface ListItem {
-  id: string;
-  title: string;
-  type: string;
-  price: number;
-  isFavorite: boolean;
-  isPremium: boolean;
-  rating: number;
+export interface OfferListItem extends ListItem {
   previewImage: string;
 }
 
-export interface OfferListItem {
+export interface FullOfferItem extends ListItem {
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: Host;
+  images: string[];
+  maxAdults: number;
+}
+
+interface Host {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+}
+
+interface ListItem {
   id: string;
   title: string;
   type: string;
@@ -19,7 +27,6 @@ export interface OfferListItem {
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
-  previewImage: string;
 }
 
 export interface City {
@@ -31,4 +38,18 @@ interface Location {
   latitude: number;
   longitude: number;
   zoom: number;
+}
+
+export interface Comment {
+  id: string;
+  date: string;
+  user: User;
+  comment: string;
+  rating: number;
+}
+
+interface User {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
 }

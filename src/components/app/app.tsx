@@ -2,10 +2,10 @@ import {lazy, Suspense} from 'react';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import {AppRoute, AuthorizationStatus} from '@/constants';
-import {OfferListItem} from '@/types/offers';
-import MainPage from '@/pages/main-page/main-page';
+import {Comment, OfferListItem, FullOfferItem} from '@/types/offers';
 import PrivateRoute from '@/components/private-route/private-route';
 import Preloader from '@/components/preloader/preloader';
+import MainPage from '@/pages/main-page/main-page';
 
 const OfferPage = lazy(() => import('@/pages/offer-page/offer-page'));
 const FavoritesPage = lazy(() => import('@/pages/favorites-page/favorites-page'));
@@ -14,12 +14,14 @@ const NotFoundPage = lazy(() => import('@/pages/not-found-page/not-found-page'))
 
 interface AppProps {
   offers: OfferListItem[];
+  fullOffer: FullOfferItem;
   favorites: OfferListItem[];
+  comments: Comment[];
 }
 
 const fallBack = <Preloader/>;
 
-export default function App({offers, favorites}: AppProps): JSX.Element {
+export default function App({offers, fullOffer, favorites, comments}: AppProps): JSX.Element {
   const router = createBrowserRouter([
     {
       path:`${AppRoute.Root}`,
@@ -36,6 +38,8 @@ export default function App({offers, favorites}: AppProps): JSX.Element {
         >
           <OfferPage
             offers={offers}
+            fullOffer={fullOffer}
+            comments={comments}
           />
         </Suspense>
     },
