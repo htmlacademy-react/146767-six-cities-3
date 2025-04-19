@@ -1,7 +1,11 @@
 import clsx from 'clsx';
 import {Link} from 'react-router-dom';
 import {OfferListItem} from '@/types/offers';
-import {AppRoute, MAX_RATING} from '@/constants';
+import {
+  AppRoute,
+  MAX_RATING,
+  ClassByTypeCard
+} from '@/constants';
 
 interface OfferCardProps {
   id: OfferListItem['id'];
@@ -12,10 +16,33 @@ interface OfferCardProps {
   isPremium: OfferListItem['isPremium'];
   rating: OfferListItem['rating'];
   previewImage: OfferListItem['previewImage'];
-  className: string;
-  size: {width: number; height: number};
+  cardClassName: string;
   onCardHover?: (id: string | null) => void;
 }
+
+const typesCard = {
+  [ClassByTypeCard.MainPageCardType]: {
+    className: ClassByTypeCard.MainPageCardType,
+    size: {
+      width: 260,
+      height: 200
+    }
+  },
+  [ClassByTypeCard.FavoritesPageCardType]: {
+    className: ClassByTypeCard.FavoritesPageCardType,
+    size: {
+      width: 150,
+      height: 110
+    }
+  },
+  [ClassByTypeCard.OfferPageCardType]: {
+    className: ClassByTypeCard.OfferPageCardType,
+    size: {
+      width: 260,
+      height: 200
+    }
+  }
+};
 
 export default function OfferCard(
   {
@@ -27,10 +54,11 @@ export default function OfferCard(
     isPremium,
     rating,
     previewImage,
-    className,
-    size,
+    cardClassName,
     onCardHover,
   }: OfferCardProps): JSX.Element {
+
+  const {className, size} = typesCard[cardClassName];
 
   return (
     <article
@@ -46,14 +74,16 @@ export default function OfferCard(
         )
       }
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
-        <a href="#">
+        <Link
+          to={AppRoute.Offer + id}
+        >
           <img
             className="place-card__image"
             src={previewImage}
             alt="Place image"
             {...size}
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -65,7 +95,10 @@ export default function OfferCard(
           </div>
 
           <button
-            className={clsx('place-card__bookmark-button button', isFavorite && 'place-card__bookmark-button--active')}
+            className={clsx(
+              'place-card__bookmark-button button',
+              isFavorite && 'place-card__bookmark-button--active'
+            )}
             type="button"
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">

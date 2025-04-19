@@ -1,7 +1,12 @@
 import NavItem from '@/components/nav-item/nav-item';
 import {Locations} from '@/constants';
 
-export default function NavList(): JSX.Element {
+interface NavListProps {
+  city: string;
+  onCityChangeClick: (city: string) => void;
+}
+
+export default function NavList({city, onCityChangeClick}:NavListProps): JSX.Element {
   return (
     <div className="tabs">
       <section className="locations container">
@@ -11,6 +16,8 @@ export default function NavList(): JSX.Element {
               <NavItem
                 key={location}
                 location={location}
+                isActive={location === city}
+                onCityChangeClick={onCityChangeClick}
               />
             ))
           }

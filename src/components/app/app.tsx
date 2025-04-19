@@ -26,9 +26,7 @@ export default function App({offers, fullOffer, favorites, comments}: AppProps):
     {
       path:`${AppRoute.Root}`,
       element:
-        <MainPage
-          offers={offers}
-        />,
+        <MainPage />,
     },
     {
       path:`${AppRoute.OfferId}`,

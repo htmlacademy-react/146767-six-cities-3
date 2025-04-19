@@ -1,24 +1,31 @@
 import {useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {PlacesFoundCount, TypeCard} from '@/constants';
-import {OfferListItem} from '@/types/offers';
+import {useAppDispatch, useAppSelector} from '@/hooks';
+import {cityСhange, searchOffers} from '@/store/action';
+import {ClassByTypeCard} from '@/constants';
 import Header from '@/components/header/header';
 import NavList from '@/components/nav-list/nav-list';
 import PlacesSorting from '@/components/places-sorting/places-sorting';
 import OffersList from '@/components/offers-list/offers-list';
 import Map from '@/components/map/map';
 
-interface MainPageProps {
-  offers: OfferListItem[];
-}
-
-export default function MainPage({offers}: MainPageProps): JSX.Element {
+export default function MainPage(): JSX.Element {
   const [selectedPointId, setSelectedPointId] = useState<string | undefined>(undefined);
+
+  const currentCity = useAppSelector((state) => state.city);
+  const offersForCity = useAppSelector((state) => state.offers);
+  const isOffersList = offersForCity[0];
+  const dispatch = useAppDispatch();
 
   const getSelectedPointId = (id: string | null) => {
     setSelectedPointId(
       typeof id === 'string' ? id : undefined
     );
+  };
+
+  const handleCityChangeClick = (city: string): void => {
+    dispatch(cityСhange(city));
+    dispatch(searchOffers());
   };
 
   return (
@@ -33,7 +40,10 @@ export default function MainPage({offers}: MainPageProps): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
 
-        <NavList />
+        <NavList
+          city={currentCity}
+          onCityChangeClick={handleCityChangeClick}
+        />
 
         <div className="cities">
           <div className="cities__places-container container">
@@ -41,28 +51,34 @@ export default function MainPage({offers}: MainPageProps): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
 
               <b className="places__found">
-                {PlacesFoundCount.AllOffersAmsterdam} places to stay in Amsterdam
+                {offersForCity.length} places to stay in {currentCity}
               </b>
-
-              <PlacesSorting />
-              <OffersList
-                offers={offers}
-                typeCard={TypeCard.MainPageCardType}
-                onCardAction={getSelectedPointId}
-              />
-
+              {
+                isOffersList && (
+                  <>
+                    <PlacesSorting />
+                    <OffersList
+                      offers={offersForCity}
+                      cardClassName={ClassByTypeCard.MainPageCardType}
+                      onCardAction={getSelectedPointId}
+                    />
+                  </>
+                )
+              }
             </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-
-                <Map
-                  startPoint={offers[0].city}
-                  points={offers}
-                  selectedPointId={selectedPointId}
-                />
-
-              </section>
-            </div>
+            {
+              isOffersList && (
+                <div className="cities__right-section">
+                  <section className="cities__map map">
+                    <Map
+                      points={offersForCity}
+                      startPoint={offersForCity[0].city}
+                      selectedPointId={selectedPointId}
+                    />
+                  </section>
+                </div>
+              )
+            }
           </div>
         </div>
       </main>

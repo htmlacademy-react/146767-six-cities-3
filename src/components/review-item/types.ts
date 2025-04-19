@@ -8,17 +8,3 @@ export interface ReviewItemProps {
   comment: Comment['comment'];
   rating: Comment['rating'];
 }
-
-export interface DateOptionsType {
-  language: Language;
-  options: Options;
-}
-
-interface Language {
-  english: 'en-US';
-}
-
-interface Options {
-  month: 'long';
-  year: 'numeric';
-}

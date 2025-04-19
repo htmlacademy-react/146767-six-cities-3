@@ -1,16 +1,15 @@
 import {MAX_RATING} from '@/constants';
 import {
-  DateOptionsType,
   ReviewItemProps
 } from './types';
 
-const DateOptions: DateOptionsType = {
+const DateOptions = {
   language: {
     english: 'en-US'
   },
   options: {
-    month: 'long',
-    year: 'numeric',
+    [Symbol('year')]: 'numeric',
+    [Symbol('month')]: 'long',
   }
 };
 

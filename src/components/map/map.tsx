@@ -29,6 +29,15 @@ export default function Map({points, startPoint, selectedPointId}: MapProps) {
 
   useEffect(() => {
     if (map) {
+      map.setView([
+        startPoint.location.latitude,
+        startPoint.location.longitude
+      ], startPoint.location.zoom);
+    }
+  }, [map, startPoint]);
+
+  useEffect(() => {
+    if (map) {
       const markerLayer = layerGroup().addTo(map);
 
       points.forEach(({id, location}) => {

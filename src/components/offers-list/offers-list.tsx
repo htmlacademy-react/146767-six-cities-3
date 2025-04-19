@@ -1,51 +1,21 @@
 import clsx from 'clsx';
-import {
-  TypeCard,
-  MAIN_PAGE_CLASS,
-  FAVORITES_PAGE_CLASS,
-  OFFER_PAGE_CLASS
-} from '@/constants';
+import {ClassByTypeCard} from '@/constants';
 import {OfferListItem} from '@/types/offers';
 import OfferCard from '@/components/offer-card/offer-card';
 
 interface OfferListProps {
   offers: OfferListItem[];
-  typeCard: TypeCard;
+  cardClassName: string;
   onCardAction?: (id: string | null) => void;
 }
 
-const typesCard = {
-  [TypeCard.MainPageCardType]: {
-    className: MAIN_PAGE_CLASS,
-    size: {
-      width: 260,
-      height: 200
-    }
-  },
-  [TypeCard.FavoritesPageCardType]: {
-    className: FAVORITES_PAGE_CLASS,
-    size: {
-      width: 150,
-      height: 110
-    }
-  },
-  [TypeCard.OfferPageCardType]: {
-    className: OFFER_PAGE_CLASS,
-    size: {
-      width: 260,
-      height: 200
-    }
-  }
-};
-
-export default function OffersList({offers, typeCard, onCardAction}: OfferListProps): JSX.Element {
-  const {className, size} = typesCard[typeCard];
+export default function OffersList({offers, cardClassName, onCardAction}: OfferListProps): JSX.Element {
 
   return (
     <div className={clsx(
-      className === MAIN_PAGE_CLASS && `${className}__places-list places__list tabs__content`,
-      className === FAVORITES_PAGE_CLASS && `${className}__places`,
-      className === OFFER_PAGE_CLASS && `${className}__list places__list`
+      cardClassName === ClassByTypeCard.MainPageCardType && `${cardClassName}__places-list places__list tabs__content`,
+      cardClassName === ClassByTypeCard.FavoritesPageCardType && `${cardClassName}__places`,
+      cardClassName === ClassByTypeCard.OfferPageCardType && `${cardClassName}__list places__list`
     )}
     >
       {
@@ -60,8 +30,7 @@ export default function OffersList({offers, typeCard, onCardAction}: OfferListPr
             isPremium={offer.isPremium}
             rating={offer.rating}
             previewImage={offer.previewImage}
-            className={className}
-            size={size}
+            cardClassName={cardClassName}
             onCardHover={onCardAction}
           />
         ))

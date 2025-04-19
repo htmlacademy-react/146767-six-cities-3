@@ -1,5 +1,5 @@
 import {OfferListItem} from '@/types/offers';
-import {TypeCard} from '@/constants';
+import {ClassByTypeCard} from '@/constants';
 import OffersList from '@/components/offers-list/offers-list';
 
 interface FavoritesItemProps {
@@ -30,7 +30,7 @@ export default function FavoriteItem({offers, location}: FavoritesItemProps): JS
 
       <OffersList
         offers={cityOffers}
-        typeCard={TypeCard.FavoritesPageCardType}
+        cardClassName={ClassByTypeCard.FavoritesPageCardType}
       />
 
     </li>
