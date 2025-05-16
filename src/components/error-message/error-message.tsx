@@ -1,9 +1,10 @@
 import {Helmet} from 'react-helmet-async';
 import {useAppSelector} from '@/hooks';
+import {getError} from '@/store/load-action/selectors';
 import styles from './error-message.module.css';
 
 export default function ErrorMessage(): JSX.Element {
-  const error = useAppSelector((state) => state.error);
+  const error = useAppSelector(getError);
 
   return (
     <div className="page page--gray page--main">

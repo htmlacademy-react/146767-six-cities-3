@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import {Link} from 'react-router-dom';
 import {AppRoute, DEFAULT_SORTING_TYPE} from '@/constants';
 import {useAppDispatch} from '@/hooks';
-import {changeCity, changeSorting} from '@/store/action';
+import {changeCity, changeSorting} from '@/store/user-action/user-action';
 
 interface NavItemProps {
   location: string;

@@ -1,10 +1,14 @@
-import {useRef, useEffect} from 'react';
-import {Marker, Icon, layerGroup} from 'leaflet';
 import useMap from '@/hooks/use-map';
+import {useRef, useEffect} from 'react';
+import 'leaflet/dist/leaflet.css';
+import {Marker, Icon, layerGroup} from 'leaflet';
 import {useAppSelector} from '@/hooks';
 import {OfferListItem, City} from '@/types/offers';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '@/constants';
-import 'leaflet/dist/leaflet.css';
+import {getOfferId} from '@/store/user-action/selectors';
+import {
+  URL_MARKER_DEFAULT,
+  URL_MARKER_CURRENT
+} from '@/constants';
 
 interface MapProps {
   points?: OfferListItem[];
@@ -24,7 +28,7 @@ const currentCustomIcon = new Icon({
 });
 
 export default function Map({points, startPoint}: MapProps) {
-  const selectedPointId = useAppSelector((state) => state.id);
+  const selectedPointId = useAppSelector(getOfferId);
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, startPoint);

@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import {useAppDispatch} from '@/hooks';
 import {OfferListItem} from '@/types/offers';
-import {changeCity, changeSorting} from '@/store/action';
+import {changeCity, changeSorting} from '@/store/user-action/user-action';
 import {AppRoute, ClassByTypeCard, DEFAULT_SORTING_TYPE} from '@/constants';
 import OffersList from '@/components/offers-list/offers-list';
 

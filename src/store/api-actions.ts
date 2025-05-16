@@ -5,75 +5,48 @@ import {
   FullOfferItem,
   Comment
 } from '@/types/offers';
-import {
-  loadOfferList,
-  loadOffersNearby,
-  loadFullOffer,
-  loadComments,
-  setError,
-} from './action.js';
-import {isAxiosError} from 'axios';
-import {StatusCodes} from 'http-status-codes';
-import {APIRoute, AppRoute} from '@/constants.js';
+import {APIRoute} from '@/constants.js';
 
 export const fetchOfferListAction = createAsyncThunk<
-  void,
+  OfferListItem[],
   undefined,
   AsyncThunkConfig
   >(
     'data/fetchOfferList',
-    async (_arg, {dispatch, extra: {api}}) => {
-      try {
-        const {data} = await api.get<OfferListItem[]>(APIRoute.Offers);
-
-        dispatch(loadOfferList(data));
-      } catch (error) {
-        if (isAxiosError(error)) {
-          dispatch(setError(error.message));
-        }
-      }
-    },
+    async (_arg, {extra: {api}}) =>
+      (await api.get<OfferListItem[]>(APIRoute.Offers))
+        .data
   );
 
 export const fetchFullOfferAction = createAsyncThunk<
-  void,
+  FullOfferItem,
   string,
   AsyncThunkConfig
   >(
     'data/fetchFullOfferList',
-    async (id, {dispatch, extra: {api, router}}) => {
-      try {
-        const {data} = await api.get<FullOfferItem>(`${APIRoute.Offers}${id}`);
+    async (id, {extra: {api}}) =>
+      (await api.get<FullOfferItem>(`${APIRoute.Offers}${id}`))
+        .data
+  );
 
-        dispatch(loadFullOffer(data));
-      } catch (error) {
-        if (isAxiosError(error)) {
-          dispatch(setError(error.message));
+export const fetchOffersNearbyAction = createAsyncThunk<
+  OfferListItem[],
+  string,
+  AsyncThunkConfig
+  >(
+    'data/fetchOffersNearbyList',
+    async (id, {extra: {api}}) =>
+      (await api.get<OfferListItem[]>(`${APIRoute.Offers}${id}${APIRoute.Nearby}`))
+        .data
+  );
 
-          if (error.response?.status === StatusCodes.NOT_FOUND) {
-            router.navigate(AppRoute.PageNotFound);
-          }
-        }
-      }
-
-      try {
-        const offersNearbyResponse = await api.get<OfferListItem[]>(`${APIRoute.Offers}${id}${APIRoute.Nearby}`);
-
-        dispatch(loadOffersNearby(offersNearbyResponse.data));
-      } catch (error) {
-        if (isAxiosError(error)) {
-          dispatch(setError(error.message));
-        }
-      }
-
-      try {
-        const commentsResponse = await api.get<Comment[]>(`${APIRoute.Comments}${id}`);
-
-        dispatch(loadComments(commentsResponse.data));
-      } catch (error) {
-        if (isAxiosError(error)) {
-          dispatch(setError(error.message));
-        }
-      }
-    },
+export const fetchCommentsAction = createAsyncThunk<
+  Comment[],
+  string,
+  AsyncThunkConfig
+  >(
+    'data/fetchCommentsList',
+    async (id, {extra: {api}}) =>
+      (await api.get<Comment[]>(`${APIRoute.Comments}${id}`))
+        .data
   );

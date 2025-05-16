@@ -7,7 +7,7 @@ import {
   ClassByTypeCard
 } from '@/constants';
 import {useAppDispatch} from '@/hooks';
-import {setOfferId} from '@/store/action';
+import {setOfferId} from '@/store/user-action/user-action';
 
 interface OfferCardProps {
   id: OfferListItem['id'];

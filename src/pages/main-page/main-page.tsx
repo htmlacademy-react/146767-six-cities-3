@@ -2,6 +2,8 @@ import clsx from 'clsx';
 import {Helmet} from 'react-helmet-async';
 import {useAppSelector} from '@/hooks';
 import {getSortedOffers} from '@/utils';
+import {getCurrentCity, getCurrentSorting} from '@/store/user-action/selectors';
+import {getError, getOffers} from '@/store/load-action/selectors';
 import {ClassByTypeCard} from '@/constants';
 import Header from '@/components/header/header';
 import NavList from '@/components/nav-list/nav-list';
@@ -13,10 +15,10 @@ import Preloader from '@/components/preloader/preloader';
 import ErrorMessage from '@/components/error-message/error-message';
 
 export default function MainPage(): JSX.Element {
-  const currentCity = useAppSelector((state) => state.city);
-  const currentSorting = useAppSelector((state) => state.sorting);
-  const offers = useAppSelector((state) => state.offers);
-  const error = useAppSelector((state) => state.error);
+  const currentCity = useAppSelector(getCurrentCity);
+  const currentSorting = useAppSelector(getCurrentSorting);
+  const offers = useAppSelector(getOffers);
+  const error = useAppSelector(getError);
 
   if (error) {
     return <ErrorMessage/>;

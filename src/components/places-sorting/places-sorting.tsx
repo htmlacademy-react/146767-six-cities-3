@@ -2,11 +2,12 @@ import clsx from 'clsx';
 import {useRef, useState} from 'react';
 import {useClickAway} from 'react-use';
 import {useAppSelector, useAppDispatch} from '@/hooks';
+import {changeSorting} from '@/store/user-action/user-action';
+import {getCurrentSorting} from '@/store/user-action/selectors';
 import {SortingType} from '@/constants';
-import {changeSorting} from '@/store/action';
 
 export default function PlacesSorting(): JSX.Element {
-  const currentSorting = useAppSelector((state) => state.sorting);
+  const currentSorting = useAppSelector(getCurrentSorting);
   const [isOpened, setIsOpened] = useState(false);
   const sortRef = useRef(null);
 
@@ -51,7 +52,7 @@ export default function PlacesSorting(): JSX.Element {
               key={type}
               className={clsx(
                 'places__option',
-                String(type) === currentSorting && 'places__option--active',
+                type === currentSorting && 'places__option--active',
               )}
               tabIndex={0}
               onClick={() => {

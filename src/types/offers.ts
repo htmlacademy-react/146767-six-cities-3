@@ -11,7 +11,7 @@ export interface FullOfferItem extends ListItem {
   maxAdults: number;
 }
 
-interface Host {
+export interface Host {
   name: string;
   avatarUrl: string;
   isPro: boolean;

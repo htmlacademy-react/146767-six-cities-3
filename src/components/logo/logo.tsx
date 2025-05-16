@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import {useAppDispatch} from '@/hooks';
-import {changeCity, changeSorting} from '@/store/action';
+import {changeCity, changeSorting} from '@/store/user-action/user-action';
 import {AppRoute, DEFAULT_CITY, DEFAULT_SORTING_TYPE} from '@/constants';
 
 type LogoProps = {
