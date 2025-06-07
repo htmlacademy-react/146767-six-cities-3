@@ -8,10 +8,10 @@ export const fetchCommentsAction = createAppAsyncThunk<
   Comment[],
   string
   >(
-    'data/fetchCommentsList',
+    'comments/fetchCommentsList',
     async (id, {extra: {api}}) => {
       try {
-        const {data} = await api.get<Comment[]>(`${APIRoute.Comments}${id}`);
+        const {data} = await api.get<Comment[]>(`${APIRoute.Comments}/${id}`);
 
         return data;
       } catch (err) {

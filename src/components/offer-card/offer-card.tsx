@@ -1,14 +1,14 @@
-import clsx from 'clsx';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {OfferListItem} from '@/types/offers';
 import {
   AppRoute,
   MAX_RATING,
   ClassByTypeCard,
+  ClassByTypeButton,
 } from '@/constants';
-import {useAppDispatch, useAppSelector} from '@/hooks';
-import {getIsAuthStatus} from '@/store/user/user.selectors';
+import {useAppDispatch} from '@/hooks';
 import {setOfferId} from '@/store/user/user.slice';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 
 interface OfferCardProps {
   id: OfferListItem['id'];
@@ -58,19 +58,11 @@ export default function OfferCard(
     previewImage,
     cardClassName,
   }: OfferCardProps): JSX.Element {
-  const isAuth = useAppSelector(getIsAuthStatus);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const {className, size} = typesCard[cardClassName];
   const shouldHover = cardClassName === ClassByTypeCard.MainPageCardType;
-
-  const onFavoriteButtonClick = () => {
-    if (!isAuth) {
-      navigate(AppRoute.Login);
-    }
-  };
 
   return (
     <article
@@ -95,7 +87,7 @@ export default function OfferCard(
       }
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <Link
-          to={`${AppRoute.Offer}${id}`}
+          to={`${AppRoute.Offer}/${id}`}
         >
           <img
             className="place-card__image"
@@ -114,19 +106,11 @@ export default function OfferCard(
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
 
-          <button
-            className={clsx(
-              'place-card__bookmark-button button',
-              isFavorite && 'place-card__bookmark-button--active'
-            )}
-            type="button"
-            onClick={onFavoriteButtonClick}
-          >
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <BookmarkButton
+            id={id}
+            isFavorite={isFavorite}
+            buttonClassName={ClassByTypeButton.OfferCardButtonType}
+          />
 
         </div>
         <div className="place-card__rating rating">
@@ -142,7 +126,7 @@ export default function OfferCard(
         </div>
         <h2 className="place-card__name">
           <Link
-            to={`${AppRoute.Offer}${id}`}
+            to={`${AppRoute.Offer}/${id}`}
           >
             {title}
           </Link>

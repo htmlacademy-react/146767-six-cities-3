@@ -1,5 +1,5 @@
 import {Helmet} from 'react-helmet-async';
-import {AppRoute} from '@/constants';
+import {AppRoute, PageTitle} from '@/constants';
 import styles from './not-found-page.module.css';
 
 export default function NotFoundPage(): JSX.Element {
@@ -8,7 +8,7 @@ export default function NotFoundPage(): JSX.Element {
 
       <Helmet>
         <title>
-          6 cities | Страница не найдена
+          {PageTitle.PageNotFound}
         </title>
       </Helmet>
 

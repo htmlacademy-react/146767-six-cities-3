@@ -1,5 +1,5 @@
 import {ChangeEvent, useState} from 'react';
-import {getRequestStatus} from '@/store/user/user.selectors';
+import {getLoginStatus} from '@/store/user/user.selectors';
 import {loginAction} from '@/store/user/user.api';
 import {useAppDispatch, useAppSelector} from '@/hooks';
 import {RequestStatus} from '@/constants';
@@ -35,7 +35,7 @@ export default function LoginForm () {
 
   const dispatch = useAppDispatch();
 
-  const loginStatus = useAppSelector(getRequestStatus);
+  const loginStatus = useAppSelector(getLoginStatus);
 
   const isSubmitting = loginStatus === RequestStatus.Loading;
 

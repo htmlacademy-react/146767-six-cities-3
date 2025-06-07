@@ -6,7 +6,7 @@ export const fetchOfferListAction = createAppAsyncThunk<
   OfferListItem[],
   void
   >(
-    'data/fetchOfferList',
+    'offers/fetchOfferList',
     async (_arg, {extra: {api}}) => {
       const {data} = await api.get<OfferListItem[]>(APIRoute.Offers);
 

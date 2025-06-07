@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {fetchFullOfferAction} from './full-offer.api';
-import {FullOfferItem} from '@/types/offers';
+import {FullOfferItem, OfferListItem} from '@/types/offers';
 import {NameSpace, RequestStatus} from '@/constants';
 
 interface InitialStateProps {
@@ -18,7 +18,13 @@ const initialState: InitialStateProps = {
 export const fullOffersLoadAction = createSlice({
   name: NameSpace.FullOffer,
   initialState,
-  reducers: {},
+  reducers: {
+    updatedFullOffer: (state, action: PayloadAction<OfferListItem>) => {
+      if (state.fullOffer) {
+        state.fullOffer.isFavorite = action.payload.isFavorite;
+      }
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchFullOfferAction.pending, (state) => {
@@ -37,3 +43,5 @@ export const fullOffersLoadAction = createSlice({
       });
   }
 });
+
+export const {updatedFullOffer} = fullOffersLoadAction.actions;

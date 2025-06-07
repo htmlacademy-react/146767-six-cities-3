@@ -5,13 +5,13 @@ import {State} from '@/types/state';
 
 export const getSortedOffers = (sort: string, offers: OfferListItem[]) => {
   switch (sort) {
-    case SortingType.popular:
+    case SortingType.Popular:
       return offers;
-    case SortingType.priceUp:
+    case SortingType.PriceUp:
       return [...offers].sort((a, b) => a.price - b.price);
-    case SortingType.priceDown:
+    case SortingType.PriceDown:
       return [...offers].sort((a, b) => b.price - a.price);
-    case SortingType.rating:
+    case SortingType.Rating:
       return [...offers].sort((a, b) => b.rating - a.rating);
     default:
       throw new Error(`Неизвестный тип сортировки: ${sort}`);

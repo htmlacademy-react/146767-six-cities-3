@@ -1,15 +1,29 @@
+import {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {logoutAction} from '@/store/user/user.api';
+import {fetchFavoritesAction} from '@/store/favorites/favorites.api';
 import {getIsAuthStatus, getUserData} from '@/store/user/user.selectors';
+import {getFavorites, geFavoritesStatus} from '@/store/favorites/favorites.selectors';
 import {useAppDispatch, useAppSelector} from '@/hooks';
-import {AppRoute} from '@/constants';
+import {AppRoute, RequestStatus} from '@/constants';
 
 export default function UserNav(): JSX.Element {
   const userName = useAppSelector(getUserData);
   const userAvatar = useAppSelector(getUserData);
+  const favorites = useAppSelector(getFavorites);
+  const requestFavoritesStatus = useAppSelector(geFavoritesStatus);
   const isAuth = useAppSelector(getIsAuthStatus);
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (
+      requestFavoritesStatus === RequestStatus.Idle &&
+      isAuth
+    ) {
+      dispatch(fetchFavoritesAction());
+    }
+  }, [dispatch, requestFavoritesStatus, isAuth]);
 
   return (
     <nav className="header__nav">
@@ -38,7 +52,7 @@ export default function UserNav(): JSX.Element {
                   {userName?.email}
                 </span>
                 <span className="header__favorite-count">
-                  3
+                  {favorites.length}
                 </span>
               </>
             )}

@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import {useAppDispatch} from '@/hooks';
 import {changeCity} from '@/store/user/user.slice';
-import {AppRoute, LOCATIONS} from '@/constants';
+import {AppRoute, LOCATIONS, PageTitle} from '@/constants';
 import Header from '@/components/header/header';
 import LoginForm from '@/components/login-form/login-form';
 
@@ -16,7 +16,9 @@ export default function LoginPage(): JSX.Element {
     <div className="page page--gray page--login">
 
       <Helmet>
-        <title>6 cities | Страница авторизации</title>
+        <title>
+          {PageTitle.LoginPage}
+        </title>
       </Helmet>
 
       <Header hiddenUserNav />

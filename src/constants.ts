@@ -45,31 +45,50 @@ export const ClassByTypeCard = {
   FavoritesPageCardType: 'favorites',
 };
 
+export const ClassByTypeButton = {
+  OfferCardButtonType: 'place-card',
+  FullOfferButtonType: 'offer',
+};
+
 export enum SortingType {
-  popular = 'Popular',
-  priceUp = 'Price: low to high',
-  priceDown = 'Price: high to low',
-  rating = 'Top rated first'
+  Popular = 'Popular',
+  PriceUp = 'Price: low to high',
+  PriceDown = 'Price: high to low',
+  Rating = 'Top rated first'
 }
 
-export const DEFAULT_SORTING_TYPE = SortingType.popular;
+export enum PageTitle {
+  MainPage = '6 cities',
+  OfferPage = '6 cities: offer',
+  LoginPage = '6 cities: authorization',
+  FavoritesPage = '6 cities: favorites',
+  FavoritesPageEmpty = '6 cities: favorites empty',
+  PageNotFound = '6 cities: page not found',
+}
+
+export const DEFAULT_SORTING_TYPE = SortingType.Popular;
 
 export enum AppRoute {
   Root = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer/',
+  Offer = '/offer',
   OfferId = '/offer/:id',
-  PageNotFound = '/*',
+  PageNotFound = '*',
 }
 
 export enum APIRoute {
-  Offers = '/offers/',
-  Comments = '/comments/',
-  Nearby = '/nearby',
-  Favorites = '/favorite',
-  Login = '/login',
-  Logout = '/logout',
+  Offers = 'offers',
+  Comments = 'comments',
+  Nearby = 'nearby',
+  Favorites = 'favorite',
+  Login = 'login',
+  Logout = 'logout',
+}
+
+export enum FavoriteStatus {
+  Added = 1,
+  Removed = 0
 }
 
 export enum AuthorizationStatus {
@@ -83,6 +102,7 @@ export enum NameSpace {
   FullOffer = 'FULL_OFFER',
   Comments = 'COMMENTS',
   OffersNearby = 'OFFERS_NEARBY',
+  Favorites = 'FAVORITES',
   User = 'USER',
 }
 
@@ -98,6 +118,8 @@ export enum RequestMessageError {
   OffersNearbyLoadingFailed = 'Ошибка загрузки соседних объявлений:',
   OffersLoadingFailed = 'Ошибка загрузки объявлений:',
   FullOfferLoadingFailed = 'Ошибка загрузки объявления:',
+  FavoritesLoadingFailed = 'Ошибка загрузки избранного:',
+  FavoritesPostingFailed = 'Ошибка добавления объявления в избранное:',
 }
 
 export enum PostCommentNotification {

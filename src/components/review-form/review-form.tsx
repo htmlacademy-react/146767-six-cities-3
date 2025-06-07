@@ -6,7 +6,7 @@ import {
   useRef
 } from 'react';
 import {useAppDispatch, useAppSelector} from '@/hooks';
-import {getRequestStatus} from '@/store/user/user.selectors';
+import {getPostCommentStatus} from '@/store/user/user.selectors';
 import {postCommentAction} from '@/store/user/user.api';
 import {OfferRatings, RequestStatus} from '@/constants';
 
@@ -28,7 +28,7 @@ export default function ReviewsForm({id}: ReviewFormProps): JSX.Element {
   const {review, rating: currentRating} = formData;
 
   const formRef = useRef<HTMLFormElement>(null);
-  const addedCommentStatus = useAppSelector(getRequestStatus);
+  const addedCommentStatus = useAppSelector(getPostCommentStatus);
 
   const dispatch = useAppDispatch();
 

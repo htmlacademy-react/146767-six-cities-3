@@ -8,10 +8,12 @@ export const fetchOffersNearbyAction = createAppAsyncThunk<
   OfferListItem[],
   string
   >(
-    'data/fetchOffersNearbyList',
+    'offersNearby/fetchOffersNearbyList',
     async (id, {extra: {api}}) => {
       try {
-        const {data} = await api.get<OfferListItem[]>(`${APIRoute.Offers}${id}${APIRoute.Nearby}`);
+        const {data} = await api.get<OfferListItem[]>(
+          `${APIRoute.Offers}/${id}/${APIRoute.Nearby}`
+        );
 
         return data;
       } catch (err) {

@@ -77,7 +77,8 @@ export const postCommentAction = createAppAsyncThunk<
     async ({id, comment, rating}, {extra: {api}}) => {
       try {
         const {data} = await api.post<Comment>(
-          `${APIRoute.Comments}${id}`, {comment, rating}
+          `${APIRoute.Comments}/${id}`,
+          {comment, rating}
         );
 
         toast.success(PostCommentNotification.CommentPostSuccess);

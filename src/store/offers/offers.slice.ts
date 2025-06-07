@@ -18,7 +18,20 @@ const initialState: InitialStateProps = {
 export const offersLoadAction = createSlice({
   name: NameSpace.Offers,
   initialState,
-  reducers: {},
+  reducers: {
+    updatedOffer: (state, action: PayloadAction<OfferListItem>) => {
+      state.offers = state.offers.map((offer) => {
+        if (offer.id === action.payload.id) {
+          return {
+            ...offer,
+            isFavorite: action.payload.isFavorite,
+          };
+        }
+
+        return offer;
+      });
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOfferListAction.pending, (state) => {
@@ -37,3 +50,5 @@ export const offersLoadAction = createSlice({
       });
   }
 });
+
+export const {updatedOffer} = offersLoadAction.actions;

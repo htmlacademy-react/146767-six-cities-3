@@ -8,10 +8,12 @@ export const fetchFullOfferAction = createAppAsyncThunk<
   FullOfferItem,
   string
   >(
-    'data/fetchFullOfferList',
+    'fullOffer/fetchFullOfferList',
     async (id, {extra: {api, router}}) => {
       try {
-        const {data} = await api.get<FullOfferItem>(`${APIRoute.Offers}${id}`);
+        const {data} = await api.get<FullOfferItem>(
+          `${APIRoute.Offers}/${id}`
+        );
 
         return data;
       } catch (err) {

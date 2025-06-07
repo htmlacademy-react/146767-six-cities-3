@@ -3,9 +3,11 @@ import {Helmet} from 'react-helmet-async';
 import {useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '@/hooks';
 import {getAddedComment, getIsAuthStatus} from '@/store/user/user.selectors';
+import {getUpdatedFavorite} from '@/store/favorites/favorites.selectors';
 import {getFullOffer, selectFullOfferStatus} from '@/store/full-offer/full-offer.selectors';
 import {getComments, selectCommentsStatus} from '@/store/comments/comments.selectors';
 import {getOffersNearby, selectOffersNearbyStatus} from '@/store/offers-nearby/offers-nearby.selectors';
+import {updatedFullOffer} from '@/store/full-offer/full-offer.slice';
 import {fetchFullOfferAction} from '@/store/full-offer/full-offer.api';
 import {fetchCommentsAction} from '@/store/comments/comments.api';
 import {fetchOffersNearbyAction} from '@/store/offers-nearby/offers-nearby.api';
@@ -13,6 +15,7 @@ import {
   ClassByTypeCard,
   MAX_COMMENTS,
   MAX_NEAR_OFFERS,
+  PageTitle,
 } from '@/constants';
 import Header from '@/components/header/header';
 import ReviewsList from '@/components/reviews-list/reviews-list';
@@ -30,6 +33,7 @@ export default function OfferPage(): JSX.Element {
   const allOffersNearby = useAppSelector(getOffersNearby);
   const comments = useAppSelector(getComments);
   const addedComment = useAppSelector(getAddedComment);
+  const updatedFavorite = useAppSelector(getUpdatedFavorite);
   const isAuth = useAppSelector(getIsAuthStatus);
   const isCommentLoadingError = !useAppSelector(selectCommentsStatus).isFailed;
   const isOffersNearbyLoadingError = !useAppSelector(selectOffersNearbyStatus).isFailed;
@@ -38,6 +42,12 @@ export default function OfferPage(): JSX.Element {
   const {id} = useParams();
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (updatedFavorite) {
+      dispatch(updatedFullOffer(updatedFavorite));
+    }
+  }, [updatedFavorite, dispatch]);
 
   useEffect(() => {
     if (id) {
@@ -84,7 +94,9 @@ export default function OfferPage(): JSX.Element {
     <div className="page">
 
       <Helmet>
-        <title>6 cities | Предложения</title>
+        <title>
+          {PageTitle.OfferPage}
+        </title>
       </Helmet>
 
       <Header />
@@ -99,17 +111,21 @@ export default function OfferPage(): JSX.Element {
           <div className="offer__container container">
             <div className="offer__wrapper">
 
-              <OfferInfo
-                title={title}
-                type={type}
-                isPremium={isPremium}
-                isFavorite={isFavorite}
-                rating={rating}
-                price={price}
-                bedrooms={bedrooms}
-                goods={goods}
-                maxAdults={maxAdults}
-              />
+              {
+                id &&
+                  <OfferInfo
+                    id={id}
+                    title={title}
+                    type={type}
+                    isPremium={isPremium}
+                    isFavorite={isFavorite}
+                    rating={rating}
+                    price={price}
+                    bedrooms={bedrooms}
+                    goods={goods}
+                    maxAdults={maxAdults}
+                  />
+              }
 
               <OfferHost
                 host={host}

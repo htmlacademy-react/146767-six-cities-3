@@ -23,7 +23,8 @@ interface InitialStateProps {
   authorizationStatus: string;
   userData: UserData | null;
   addedComment: Comment | null;
-  requestStatus: RequestStatus;
+  LoginStatus: RequestStatus;
+  PostCommentStatus: RequestStatus;
 }
 
 const initialState: InitialStateProps = {
@@ -33,7 +34,8 @@ const initialState: InitialStateProps = {
   authorizationStatus: AuthorizationStatus.Unknown,
   userData: null,
   addedComment: null,
-  requestStatus: RequestStatus.Idle,
+  LoginStatus: RequestStatus.Idle,
+  PostCommentStatus: RequestStatus.Idle,
 };
 
 export const userAction = createSlice({
@@ -60,29 +62,29 @@ export const userAction = createSlice({
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
       .addCase(loginAction.pending, (state) => {
-        state.requestStatus = RequestStatus.Loading;
+        state.LoginStatus = RequestStatus.Loading;
       })
       .addCase(loginAction.fulfilled, (state, action) => {
         state.userData = action.payload;
         state.authorizationStatus = AuthorizationStatus.Auth;
-        state.requestStatus = RequestStatus.Succeeded;
+        state.LoginStatus = RequestStatus.Succeeded;
       })
       .addCase(loginAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
-        state.requestStatus = RequestStatus.Failed;
+        state.LoginStatus = RequestStatus.Failed;
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
       .addCase(postCommentAction.pending, (state) => {
-        state.requestStatus = RequestStatus.Loading;
+        state.PostCommentStatus = RequestStatus.Loading;
       })
       .addCase(postCommentAction.fulfilled, (state, action) => {
         state.addedComment = action.payload;
-        state.requestStatus = RequestStatus.Succeeded;
+        state.PostCommentStatus = RequestStatus.Succeeded;
       })
       .addCase(postCommentAction.rejected, (state) => {
-        state.requestStatus = RequestStatus.Failed;
+        state.PostCommentStatus = RequestStatus.Failed;
       });
   }
 });
