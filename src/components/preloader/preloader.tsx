@@ -5,6 +5,7 @@ export default function Preloader() {
     <div
       className={styles.preloader}
       data-testid="preloader"
+      role="status"
     >
       <img
         className={styles.preloader__image}

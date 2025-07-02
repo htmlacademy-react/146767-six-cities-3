@@ -81,6 +81,7 @@ export default function BookmarkButton({
         `${className}__bookmark-button button`,
         isFavorite && isAuth && `${className}__bookmark-button--active`
       )}
+      data-testid="bookmark-button"
       type="button"
       onClick={handleFavoriteButtonClick}
       disabled={isLoadingStatus[id]}

@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import {AppRoute, PageTitle} from '@/constants';
 import styles from './not-found-page.module.css';
@@ -30,12 +31,12 @@ export default function NotFoundPage(): JSX.Element {
           Ничего не найдено по этому адресу | не пугайте так кота!
         </p>
 
-        <a
+        <Link
           className={styles.link__main}
-          href={AppRoute.Root}
+          to={AppRoute.Root}
         >
           К списку городов
-        </a>
+        </Link>
 
       </main>
     </div>
