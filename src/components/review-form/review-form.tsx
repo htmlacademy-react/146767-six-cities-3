@@ -19,7 +19,7 @@ const enum TextButtonSubmit {
   IN_PROGRESS = 'Submitting…',
 }
 
-export default function ReviewsForm({id}: ReviewFormProps): JSX.Element {
+export default function ReviewForm({id}: ReviewFormProps): JSX.Element {
   const [formData, setFormData] = useState({
     review: '',
     rating: ''

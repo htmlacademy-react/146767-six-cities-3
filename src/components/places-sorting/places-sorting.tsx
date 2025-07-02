@@ -33,6 +33,7 @@ export default function PlacesSorting(): JSX.Element {
         className="places__sorting-type"
         tabIndex={0}
         onClick={() => setIsOpened((prevActive) => !prevActive)}
+        data-testid="sorting"
       >
         {currentSorting}
         <svg className="places__sorting-arrow" width="7" height="4">

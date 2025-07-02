@@ -37,7 +37,10 @@ export default function OfferInfo({
           </div>
         )
       }
-      <div className="offer__name-wrapper">
+      <div
+        className="offer__name-wrapper"
+        data-testid="offer-info"
+      >
         <h1 className="offer__name">
           {title}
         </h1>
@@ -51,6 +54,7 @@ export default function OfferInfo({
       <div className="offer__rating rating">
         <div className="offer__stars rating__stars">
           <span
+            data-testid="rating-stars"
             style={{
               width: `${roundedRating * (100 / MAX_RATING)}%`
             }}
@@ -84,6 +88,7 @@ export default function OfferInfo({
             goods.map((good) => (
               <li
                 className="offer__inside-item"
+                data-testid="offer-goods-item"
                 key={good}
               >
                 {good}

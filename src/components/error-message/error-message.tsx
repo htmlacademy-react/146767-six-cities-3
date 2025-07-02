@@ -13,7 +13,10 @@ export default function ErrorMessage(): JSX.Element {
   const fullOfferErrorText = RequestMessageError.FullOfferLoadingFailed;
 
   return (
-    <div className="page page--gray page--main">
+    <div
+      className="page page--gray page--main"
+      data-testid="error-message"
+    >
 
       <Helmet>
         <title>

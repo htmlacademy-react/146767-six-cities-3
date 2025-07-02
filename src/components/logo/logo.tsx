@@ -26,6 +26,7 @@ export default function Logo({type}: LogoProps): JSX.Element {
     <Link
       to={AppRoute.Root}
       className={`${type}__logo-link`}
+      data-testid="logo"
       onClick={
         () => {
           dispatch(changeCity(DEFAULT_CITY));

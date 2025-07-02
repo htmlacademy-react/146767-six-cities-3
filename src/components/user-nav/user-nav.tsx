@@ -69,8 +69,13 @@ export default function UserNav(): JSX.Element {
         </li>
         {isAuth && (
           <li className="header__nav-item">
-            <a
+            <button
               className="header__nav-link"
+              style={{
+                backgroundColor: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+              }}
               onClick={() => {
                 dispatch(logoutAction());
               }}
@@ -78,7 +83,7 @@ export default function UserNav(): JSX.Element {
               <span className="header__signout">
                 Sign out
               </span>
-            </a>
+            </button>
           </li>
         )}
       </ul>

@@ -20,9 +20,7 @@ export function withHistory(
   initialEntries: string[] = []
 ): JSX.Element {
   return (
-    <MemoryRouter
-      initialEntries={initialEntries}
-    >
+    <MemoryRouter initialEntries={initialEntries}>
       <HelmetProvider>
         {component}
       </HelmetProvider>

@@ -10,7 +10,10 @@ export default function NavList({city}:NavListProps): JSX.Element {
   const MemoNavItem = memo(NavItem);
 
   return (
-    <div className="tabs">
+    <div
+      className="tabs"
+      data-testid="nav-list"
+    >
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {

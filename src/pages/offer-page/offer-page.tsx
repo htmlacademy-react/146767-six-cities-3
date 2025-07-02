@@ -18,7 +18,7 @@ import {
 } from '@/constants';
 import Header from '@/components/header/header';
 import ReviewsList from '@/components/reviews-list/reviews-list';
-import ReviewsForm from '@/components/review-form/review-form';
+import ReviewForm from '@/components/review-form/review-form';
 import Map from '@/components/map/map';
 import OfferGallery from '@/components/offer-gallery/offer-gallery';
 import OfferInfo from '@/components/offer-info/offer-info';
@@ -30,7 +30,7 @@ import ErrorMessage from '@/components/error-message/error-message';
 export default function OfferPage(): JSX.Element {
   const MemoHeader = memo(Header);
   const MemoReviewsList = memo(ReviewsList);
-  const MemoReviewsForm = memo(ReviewsForm);
+  const MemoReviewForm = memo(ReviewForm);
   const MemoMap = memo(Map);
   const MemoOfferGallery = memo(OfferGallery);
   const MemoOfferInfo = memo(OfferInfo);
@@ -149,7 +149,7 @@ export default function OfferPage(): JSX.Element {
                 {
                   isAuth &&
                   id && (
-                    <MemoReviewsForm
+                    <MemoReviewForm
                       id={id}
                     />
                   )

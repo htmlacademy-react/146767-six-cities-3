@@ -16,7 +16,10 @@ export default function ReviewItem(
   const dateTime = new Date(date);
 
   return (
-    <li className="reviews__item">
+    <li
+      className="reviews__item"
+      data-testid="review-item"
+    >
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img
@@ -45,6 +48,7 @@ export default function ReviewItem(
               style={{
                 width: `${rating * (100 / MAX_RATING)}%`
               }}
+              data-testid="rating-stars"
             >
             </span>
             <span className="visually-hidden">Rating</span>
@@ -56,6 +60,7 @@ export default function ReviewItem(
         <time
           className="reviews__time"
           dateTime={dateTime.toISOString().slice(0, 10)}
+          data-testid="review-time"
         >
           {
             dateTime.toLocaleDateString(
